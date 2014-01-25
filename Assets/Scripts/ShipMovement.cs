@@ -5,15 +5,19 @@ using System;
 public class ShipMovement : MonoBehaviour
 {
     [SerializeField]
-    private float Speed;
+    private float MaxSpeed;
 
     [SerializeField]
     private float MaxRudderAngle;
-
+    
     private Vector3 windDirection = new Vector3(-1.0f, 0.0f, 0.0f);
 
     private Vector3 sailDirection = new Vector3(0.0f, 0.0f, 1.0f);
     private Vector3 rudderDirection = new Vector3(0.0f, 0.0f, -1.0f);
+
+    private Vector3 localRudder = new Vector3(0.0f, 0.0f, -1.0f);
+
+    private float speed = 0.0f;
 
     private enum Direction
     {
@@ -35,8 +39,12 @@ public class ShipMovement : MonoBehaviour
     void Update ()
     {
         ReadInput();
-        rigidbody.velocity = ForwardDirection() * ForwardSpeed();
-	}
+
+        UpdateForward();
+        UpdateSpeed();
+
+        rigidbody.velocity = -rudderDirection * speed;
+    }
 
     void OnGui()
     {
@@ -54,19 +62,29 @@ public class ShipMovement : MonoBehaviour
         }
     }
 
-    private Vector3 ForwardDirection()
+    private void UpdateForward()
     {
-        Vector3 targetDirection = Quaternion.AngleAxis(rudder * MaxRudderAngle, Vector3.up) * rigidbody.velocity.normalized;
-        rudderDirection = Vector3.Lerp(rudderDirection, targetDirection, Time.deltaTime).normalized;
+        Quaternion rotation = Quaternion.Euler(0.0f, -rudder * MaxRudderAngle, 0.0f);
+        Vector3 targetLocal = (rotation * -Vector3.forward).normalized;
+        localRudder = Vector3.Lerp(localRudder, targetLocal, Time.deltaTime);
+
+        Vector3 targetRudderDirection = (Quaternion.FromToRotation(-Vector3.forward, localRudder) * rudderDirection).normalized;
+        rudderDirection = Vector3.Lerp(rudderDirection, targetRudderDirection, Time.deltaTime);
+
+        float angle = Vector3.Angle(Vector3.forward, -rudderDirection);
+        if (Vector3.Cross(Vector3.forward, -rudderDirection).y <= 0.0f)
+        {
+            angle *= -1.0f;
+        }
+
+        transform.rotation = Quaternion.Euler(90.0f, angle, 0.0f);
 
         Debug.DrawRay(transform.position, rudderDirection, Color.yellow);
-        return rudderDirection;
+        Debug.DrawRay(transform.position, localRudder, Color.green);
     }
 
-    private float ForwardSpeed()
+    private void UpdateSpeed()
     {
-        float magnitude = Vector2.Dot(sailDirection, windDirection) * Speed;
-        return magnitude;
-        return 0.0f;
+        speed = (1.0f - Vector2.Dot(sailDirection, -windDirection)) * MaxSpeed;
     }
 }

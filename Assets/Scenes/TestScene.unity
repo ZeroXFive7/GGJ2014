@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b611d7eb3bb722e47823d89d7add7c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  MaxSpeed: .5
   MaxRudderAngle: 45
 --- !u!54 &1554714932
 Rigidbody:
@@ -116,7 +116,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -150,7 +150,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1554714930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -179,6 +179,7 @@ GameObject:
   - 92: {fileID: 1708040778}
   - 124: {fileID: 1708040777}
   - 81: {fileID: 1708040776}
+  - 114: {fileID: 1708040781}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -226,7 +227,7 @@ Camera:
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -242,8 +243,20 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1708040775}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1708040781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1708040775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e142b32ca685ee447ae7897e1466ba55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1554714934}
