@@ -22,7 +22,8 @@ public class Cannon : MonoBehaviour {
         {
             lastFireTime = Time.time;
             GameObject bullet = GameObject.Instantiate(Amunition, transform.position, transform.rotation) as GameObject;
-            bullet.rigidbody.velocity = transform.forward * FireVelocity;
+			bullet.rigidbody.velocity = transform.forward * FireVelocity + transform.parent.rigidbody.velocity;
+			Physics.IgnoreCollision(transform.parent.collider, bullet.collider);
         }
     }
 }
