@@ -16,6 +16,9 @@ public class ShipMovement : MonoBehaviour
     [SerializeField]
     private float maxSailAngle;
 
+    [SerializeField]
+    private float cannonKickback;
+
     public int joystickIndex;
 
     private Quaternion sailRotation = Quaternion.identity;
@@ -101,5 +104,20 @@ public class ShipMovement : MonoBehaviour
         {
             sailRotation = oldRotation;
         }
+    }
+
+    public void CannonRecoil(Vector3 direction)
+    {
+        rigidbody.velocity -= MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback;
+
+        Debug.Log(MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback);
+        //if (Vector3.Cross(transform.forward, MathHelper.ProjectVectorToPlane(direction, Vector3.up)).y < 0.0f)
+        //{
+        //    rigidbody.velocity +=
+        //}
+        //else
+        //{
+
+        //}
     }
 }
