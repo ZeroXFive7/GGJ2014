@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Cannon : MonoBehaviour {
 
+    private int joystickIndex;
+
     public string FireInput = "Input Name";
     public float FireCooldown = 2.0f;
     public float FireVelocity = 2.0f;
@@ -12,13 +14,14 @@ public class Cannon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        joystickIndex = transform.parent.gameObject.GetComponent<ShipMovement>().joystickIndex;
+        Debug.Log(joystickIndex);
 	}
 	
 	// Update is called once per frame
     void Update()
     {
-        if (Input.GetButton(FireInput) && Time.time - lastFireTime > FireCooldown)
+        if (Input.GetButton(FireInput + "Joystick" + joystickIndex) && Time.time - lastFireTime > FireCooldown)
         {
             lastFireTime = Time.time;
             GameObject bullet = GameObject.Instantiate(Amunition, transform.position, Quaternion.identity) as GameObject;

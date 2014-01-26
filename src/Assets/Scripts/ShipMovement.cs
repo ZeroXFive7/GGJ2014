@@ -16,6 +16,8 @@ public class ShipMovement : MonoBehaviour
     [SerializeField]
     private float maxSailAngle;
 
+    public int joystickIndex;
+
     private Quaternion sailRotation = Quaternion.identity;
     private Vector3 rudderTangentLS = new Vector3(0.0f, 0.0f, -1.0f);
     private Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
@@ -49,8 +51,8 @@ public class ShipMovement : MonoBehaviour
 
     private void ReadInput()
     {
-        slack = Mathf.Max(Input.GetAxis("Slack"), 0.0f);
-        rudder = Input.GetAxis("Rudder");
+        slack = Mathf.Max(Input.GetAxis("SlackJoystick" + joystickIndex), 0.0f);
+        rudder = Input.GetAxis("RudderJoystick" + joystickIndex);
     }
 
     private void UpdateRudder()
@@ -99,7 +101,5 @@ public class ShipMovement : MonoBehaviour
         {
             sailRotation = oldRotation;
         }
-
-        Debug.DrawRay(transform.position, 2.5f * (sailRotation * fullTaughtTangentWS), Color.green);
     }
 }
