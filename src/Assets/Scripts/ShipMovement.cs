@@ -5,9 +5,6 @@ using System;
 public class ShipMovement : MonoBehaviour
 {
     [SerializeField]
-    private Transform cannonball;
-
-    [SerializeField]
     private float maxSpeed;
 
     [SerializeField]
@@ -44,7 +41,7 @@ public class ShipMovement : MonoBehaviour
         UpdateSail();
         UpdateRudder();
 
-        rigidbody.velocity = transform.forward * maxSpeed * relativeSpeed;
+        rigidbody.AddRelativeForce(Vector3.forward * maxSpeed * relativeSpeed);
     }
 
     void OnGUI()
@@ -108,16 +105,7 @@ public class ShipMovement : MonoBehaviour
 
     public void CannonRecoil(Vector3 direction)
     {
-        rigidbody.velocity -= MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback;
-
-        Debug.Log(MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback);
-        //if (Vector3.Cross(transform.forward, MathHelper.ProjectVectorToPlane(direction, Vector3.up)).y < 0.0f)
-        //{
-        //    rigidbody.velocity +=
-        //}
-        //else
-        //{
-
-        //}
+        float scalar = (Vector3.Cross(transform.forward, direction).y > 0.0f) ? -1.0f : 1.0f;
+        rigidbody.AddTorque(transform.up * cannonKickback * scalar);
     }
 }
