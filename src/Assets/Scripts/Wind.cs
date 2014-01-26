@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Wind : MonoBehaviour {
 
+	public float WindStrength = 1;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,7 +20,7 @@ public class Wind : MonoBehaviour {
 		ShipMovement player = other.gameObject.GetComponent<ShipMovement>();
 		if (player != null)
 		{
-			player.windDirectionWS = Vector3.Slerp(player.windDirectionWS, transform.forward, Time.deltaTime);
+			player.windDirectionWS = Vector3.Slerp(player.windDirectionWS, transform.forward * WindStrength, Time.deltaTime);
 		}
 	}
 }

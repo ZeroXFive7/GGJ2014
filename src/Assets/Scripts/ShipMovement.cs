@@ -58,13 +58,13 @@ public class ShipMovement : MonoBehaviour
         Vector3 targetLocal = (rudderRotationLS * -Vector3.forward).normalized;
         rudderTangentLS = Vector3.Lerp(rudderTangentLS, targetLocal, Time.deltaTime);
 
+        Transform rudderObject = transform.FindChild("Rudder");
+        rudderObject.transform.localRotation = Quaternion.FromToRotation(-Vector3.forward, rudderTangentLS);
+
         Vector3 targetRudderDirection = (Quaternion.FromToRotation(-Vector3.forward, rudderTangentLS) * -transform.forward).normalized;
         Vector3 newForward = Vector3.Lerp(transform.forward, -targetRudderDirection, Time.deltaTime);
 
         transform.rotation = Quaternion.FromToRotation(Vector3.forward, newForward);
-
-        Transform rudderObject = transform.FindChild("Rudder");
-        rudderObject.transform.localRotation = Quaternion.FromToRotation(-Vector3.forward, rudderTangentLS);
     }
 
     private void UpdateSail()
@@ -77,7 +77,6 @@ public class ShipMovement : MonoBehaviour
         Vector3 sailNormalWS = sail.right;
         relativeSpeed = Mathf.Abs(Vector3.Dot(sailNormalWS, windDirectionWS));
     }
-    private bool wasActive = false;
 
     private void UpdateSailRotation()
     {

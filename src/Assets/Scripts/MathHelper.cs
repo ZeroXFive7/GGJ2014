@@ -7,4 +7,9 @@ static public class MathHelper : object
     {
         return vec - Vector3.Dot(vec, planeNormal) * planeNormal;
     }
+
+    static public Vector3 ProjectVectorToVector(Vector3 source, Vector3 destination)
+    {
+        return Vector3.Dot(source, destination) * destination;
+    }
 }
