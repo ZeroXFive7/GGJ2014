@@ -20,7 +20,7 @@ public class ShipMovement : MonoBehaviour
 
     private Quaternion sailRotation = Quaternion.identity;
     private Vector3 rudderTangentLS = new Vector3(0.0f, 0.0f, -1.0f);
-    private Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
+    public Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
 
     private float relativeSpeed = 0.0f;
 
