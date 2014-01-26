@@ -5,9 +5,6 @@ using System;
 public class ShipMovement : MonoBehaviour
 {
     [SerializeField]
-    private Transform cannonball;
-
-    [SerializeField]
     private float maxSpeed;
 
     [SerializeField]
@@ -23,7 +20,7 @@ public class ShipMovement : MonoBehaviour
 
     private Quaternion sailRotation = Quaternion.identity;
     private Vector3 rudderTangentLS = new Vector3(0.0f, 0.0f, -1.0f);
-    private Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
+    public Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
 
     private float relativeSpeed = 0.0f;
 
@@ -40,16 +37,13 @@ public class ShipMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        windDirectionWS = new Vector3(1.0f, 0.0f, 1.0f).normalized;
+
         ReadInput();
         UpdateSail();
         UpdateRudder();
 
-        rigidbody.velocity = transform.forward * maxSpeed * relativeSpeed;
-    }
-
-    void OnGUI()
-    {
-
+        rigidbody.AddRelativeForce(Vector3.forward * maxSpeed * relativeSpeed);
     }
 
     private void ReadInput()
@@ -80,14 +74,10 @@ public class ShipMovement : MonoBehaviour
         Transform sail = transform.FindChild("Sail");
         sail.transform.localRotation = sailRotation;
 
-        Vector3 sailNormalWS = sailRotation * transform.right;
-        if (Vector3.Cross(windDirectionWS, sailRotation * transform.forward).y < 0.0f)
-        {
-            sailNormalWS *= -1.0f;
-        }
-
-        relativeSpeed = Vector2.Dot(sailNormalWS, -windDirectionWS);
+        Vector3 sailNormalWS = sail.right;
+        relativeSpeed = Mathf.Abs(Vector3.Dot(sailNormalWS, windDirectionWS));
     }
+    private bool wasActive = false;
 
     private void UpdateSailRotation()
     {
@@ -106,18 +96,8 @@ public class ShipMovement : MonoBehaviour
         }
     }
 
-    public void CannonRecoil(Vector3 direction)
+    public void CannonRecoil(Vector3 position, Vector3 direction)
     {
-        rigidbody.velocity -= MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback;
-
-        Debug.Log(MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback);
-        //if (Vector3.Cross(transform.forward, MathHelper.ProjectVectorToPlane(direction, Vector3.up)).y < 0.0f)
-        //{
-        //    rigidbody.velocity +=
-        //}
-        //else
-        //{
-
-        //}
+        rigidbody.AddForceAtPosition(-direction * 100.0f * cannonKickback, position);
     }
 }
