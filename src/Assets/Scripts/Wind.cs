@@ -15,8 +15,8 @@ public class Wind : MonoBehaviour {
 
 	void OnTriggerStay(Collider other)
 	{
-		var player = other as ShipMovement;
-		if (player)
+		ShipMovement player = other.gameObject.GetComponent<ShipMovement>();
+		if (player != null)
 		{
 			player.windDirectionWS = transform.forward;
 		}
