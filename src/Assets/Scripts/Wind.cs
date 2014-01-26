@@ -18,7 +18,7 @@ public class Wind : MonoBehaviour {
 		ShipMovement player = other.gameObject.GetComponent<ShipMovement>();
 		if (player != null)
 		{
-			Vector3.Slerp(player.windDirectionWS, transform.forward, Time.deltaTime);
+			player.windDirectionWS = Vector3.Slerp(player.windDirectionWS, transform.forward, Time.deltaTime);
 		}
 	}
 }
