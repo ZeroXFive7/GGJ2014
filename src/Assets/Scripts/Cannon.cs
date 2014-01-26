@@ -21,8 +21,8 @@ public class Cannon : MonoBehaviour {
         if (Input.GetButton(FireInput) && Time.time - lastFireTime > FireCooldown)
         {
             lastFireTime = Time.time;
-            GameObject bullet = GameObject.Instantiate(Amunition, transform.position, transform.rotation) as GameObject;
-			bullet.rigidbody.velocity = transform.forward * FireVelocity + transform.parent.rigidbody.velocity;
+            GameObject bullet = GameObject.Instantiate(Amunition, transform.position, Quaternion.identity) as GameObject;
+            bullet.rigidbody.velocity = transform.forward * FireVelocity + transform.parent.rigidbody.velocity;
 			Physics.IgnoreCollision(transform.parent.collider, bullet.collider);
         }
     }
