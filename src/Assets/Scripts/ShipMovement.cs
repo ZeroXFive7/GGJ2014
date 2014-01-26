@@ -37,18 +37,13 @@ public class ShipMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.DrawRay(transform.position, windDirectionWS, Color.green);
+        windDirectionWS = new Vector3(1.0f, 0.0f, 1.0f).normalized;
 
         ReadInput();
         UpdateSail();
         UpdateRudder();
 
         rigidbody.AddRelativeForce(Vector3.forward * maxSpeed * relativeSpeed);
-    }
-
-    void OnGUI()
-    {
-
     }
 
     private void ReadInput()
@@ -79,18 +74,10 @@ public class ShipMovement : MonoBehaviour
         Transform sail = transform.FindChild("Sail");
         sail.transform.localRotation = sailRotation;
 
-        Vector3 sailNormalWS = sailRotation * transform.right;
-
-        Debug.DrawRay(transform.position, sailRotation * transform.forward, Color.blue);
-        Debug.DrawRay(transform.position, sailNormalWS, Color.red);
-
-        if (Vector3.Cross(windDirectionWS, sailRotation * transform.forward).y < 0.0f)
-        {
-            sailNormalWS *= -1.0f;
-        }
-
-        relativeSpeed = Vector2.Dot(sailNormalWS, -windDirectionWS);
+        Vector3 sailNormalWS = sail.right;
+        relativeSpeed = Mathf.Abs(Vector3.Dot(sailNormalWS, windDirectionWS));
     }
+    private bool wasActive = false;
 
     private void UpdateSailRotation()
     {

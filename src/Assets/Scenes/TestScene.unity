@@ -5187,7 +5187,7 @@ MonoBehaviour:
   TileWidth: 1
   TileHeight: 1
   TileType: {fileID: 100006, guid: dc5fa6d5238d72242bbc200a8947a415, type: 2}
-  MarkerPosition: {x: 5.70919943, y: .272453308, z: -4.60059404}
+  MarkerPosition: {x: -6.29080057, y: .272453308, z: 4.39940596}
 --- !u!1 &545883480
 GameObject:
   m_ObjectHideFlags: 0
