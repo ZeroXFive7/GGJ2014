@@ -29,7 +29,7 @@ public class Cannon : MonoBehaviour {
             bullet.rigidbody.velocity = transform.forward * FireVelocity + transform.parent.rigidbody.velocity;
 			Physics.IgnoreCollision(transform.parent.collider, bullet.collider);
 
-            parent.CannonRecoil(transform.forward);
+            parent.CannonRecoil(transform.position, transform.forward);
         }
     }
 }

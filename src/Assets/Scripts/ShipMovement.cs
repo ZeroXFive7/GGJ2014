@@ -37,6 +37,8 @@ public class ShipMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.DrawRay(transform.position, windDirectionWS, Color.green);
+
         ReadInput();
         UpdateSail();
         UpdateRudder();
@@ -103,9 +105,8 @@ public class ShipMovement : MonoBehaviour
         }
     }
 
-    public void CannonRecoil(Vector3 direction)
+    public void CannonRecoil(Vector3 position, Vector3 direction)
     {
-        float scalar = (Vector3.Cross(transform.forward, direction).y > 0.0f) ? -1.0f : 1.0f;
-        rigidbody.AddTorque(transform.up * cannonKickback * scalar);
+        rigidbody.AddForceAtPosition(-direction * 100.0f * cannonKickback, position);
     }
 }
