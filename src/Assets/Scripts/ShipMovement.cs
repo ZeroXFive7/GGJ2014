@@ -64,14 +64,15 @@ public class ShipMovement : MonoBehaviour
 
         transform.rotation = Quaternion.FromToRotation(Vector3.forward, newForward);
 
-        Debug.DrawRay(transform.position - transform.forward * 2.0f, transform.rotation * rudderTangentLS, Color.red);
+        Transform rudderObject = transform.FindChild("Rudder");
+        rudderObject.transform.localRotation = Quaternion.FromToRotation(-Vector3.forward, rudderTangentLS);
     }
 
     private void UpdateSail()
     {
         UpdateSailRotation();
 
-        Transform sail = transform.GetChild(0);
+        Transform sail = transform.FindChild("Sail");
         sail.transform.localRotation = sailRotation;
 
         Vector3 sailNormalWS = sailRotation * transform.right;
@@ -79,7 +80,6 @@ public class ShipMovement : MonoBehaviour
         {
             sailNormalWS *= -1.0f;
         }
-        Debug.DrawRay(transform.position, sailNormalWS, Color.blue);
 
         relativeSpeed = Vector2.Dot(sailNormalWS, -windDirectionWS);
     }
