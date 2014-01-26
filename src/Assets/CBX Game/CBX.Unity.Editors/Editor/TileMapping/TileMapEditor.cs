@@ -108,7 +108,7 @@ namespace CBX.Unity.Editors.Editor
             // if no game object was found we will create a cube
             if (cube == null)
             {
-				cube = GameObject.Instantiate(map.TileType) as GameObject;
+				cube = PrefabUtility.InstantiatePrefab(map.TileType) as GameObject;
             }
 
             // set the cubes position on the tile map
