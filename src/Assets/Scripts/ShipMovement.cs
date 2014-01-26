@@ -5,18 +5,25 @@ using System;
 public class ShipMovement : MonoBehaviour
 {
     [SerializeField]
-    private float MaxSpeed;
+    private Transform cannonball;
 
     [SerializeField]
-    private float MaxRudderAngle;
+    private float maxSpeed;
 
     [SerializeField]
-    private float MaxSailAngle;
-    
-    private Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
+    private float maxRudderAngle;
+
+    [SerializeField]
+    private float maxSailAngle;
+
+    [SerializeField]
+    private float cannonKickback;
+
+    public int joystickIndex;
 
     private Quaternion sailRotation = Quaternion.identity;
     private Vector3 rudderTangentLS = new Vector3(0.0f, 0.0f, -1.0f);
+    private Vector3 windDirectionWS = new Vector3(-1.0f, 0.0f, 0.0f);
 
     private float relativeSpeed = 0.0f;
 
@@ -30,44 +37,30 @@ public class ShipMovement : MonoBehaviour
 
     private float slack;
     private float rudder;
-    private bool[] isFiring;
 
-	void Start () 
+    void FixedUpdate()
     {
-        isFiring = new bool[4];
-	}
-	
-    void Update ()
-    {
-        Debug.DrawRay(transform.position + new Vector3(-5.0f, 0.0f, 5.0f), 5.0f * windDirectionWS, Color.magenta);
-
         ReadInput();
-
         UpdateSail();
         UpdateRudder();
 
-        rigidbody.velocity = transform.forward * MaxSpeed * relativeSpeed;
+        rigidbody.velocity = transform.forward * maxSpeed * relativeSpeed;
     }
 
     void OnGUI()
     {
-        
+
     }
 
     private void ReadInput()
     {
-        slack = Mathf.Max(Input.GetAxis("Slack"), 0.0f);
-        rudder = Input.GetAxis("Rudder");
-
-        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
-        {
-            isFiring[(int)dir] = Input.GetButton("Fire" + dir.ToString());
-        }
+        slack = Mathf.Max(Input.GetAxis("SlackJoystick" + joystickIndex), 0.0f);
+        rudder = Input.GetAxis("RudderJoystick" + joystickIndex);
     }
 
     private void UpdateRudder()
     {
-        Quaternion rudderRotationLS = Quaternion.Euler(0.0f, -rudder * MaxRudderAngle, 0.0f);
+        Quaternion rudderRotationLS = Quaternion.Euler(0.0f, -rudder * maxRudderAngle, 0.0f);
         Vector3 targetLocal = (rudderRotationLS * -Vector3.forward).normalized;
         rudderTangentLS = Vector3.Lerp(rudderTangentLS, targetLocal, Time.deltaTime);
 
@@ -76,14 +69,15 @@ public class ShipMovement : MonoBehaviour
 
         transform.rotation = Quaternion.FromToRotation(Vector3.forward, newForward);
 
-        Debug.DrawRay(transform.position - transform.forward * 2.0f, transform.rotation * rudderTangentLS, Color.red);
+        Transform rudderObject = transform.FindChild("Rudder");
+        rudderObject.transform.localRotation = Quaternion.FromToRotation(-Vector3.forward, rudderTangentLS);
     }
 
     private void UpdateSail()
     {
         UpdateSailRotation();
-        
-        Transform sail = transform.GetChild(0);
+
+        Transform sail = transform.FindChild("Sail");
         sail.transform.localRotation = sailRotation;
 
         Vector3 sailNormalWS = sailRotation * transform.right;
@@ -91,7 +85,6 @@ public class ShipMovement : MonoBehaviour
         {
             sailNormalWS *= -1.0f;
         }
-        Debug.DrawRay(transform.position, sailNormalWS, Color.blue);
 
         relativeSpeed = Vector2.Dot(sailNormalWS, -windDirectionWS);
     }
@@ -107,11 +100,24 @@ public class ShipMovement : MonoBehaviour
         fullSlackRotation = Quaternion.Slerp(Quaternion.identity, fullSlackRotation, (1.0f - slack));
 
         sailRotation = Quaternion.Lerp(sailRotation, fullSlackRotation, Time.deltaTime);
-        if (Vector3.Angle((sailRotation * fullTaughtTangentWS), fullTaughtTangentWS) > MaxSailAngle)
+        if (Vector3.Angle((sailRotation * fullTaughtTangentWS), fullTaughtTangentWS) > maxSailAngle)
         {
             sailRotation = oldRotation;
         }
+    }
 
-        Debug.DrawRay(transform.position, 2.5f * (sailRotation * fullTaughtTangentWS), Color.green);
+    public void CannonRecoil(Vector3 direction)
+    {
+        rigidbody.velocity -= MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback;
+
+        Debug.Log(MathHelper.ProjectVectorToPlane(direction, Vector3.up) * cannonKickback);
+        //if (Vector3.Cross(transform.forward, MathHelper.ProjectVectorToPlane(direction, Vector3.up)).y < 0.0f)
+        //{
+        //    rigidbody.velocity +=
+        //}
+        //else
+        //{
+
+        //}
     }
 }
