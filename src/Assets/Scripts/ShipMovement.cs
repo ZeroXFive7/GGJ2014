@@ -80,6 +80,10 @@ public class ShipMovement : MonoBehaviour
         sail.transform.localRotation = sailRotation;
 
         Vector3 sailNormalWS = sailRotation * transform.right;
+
+        Debug.DrawRay(transform.position, sailRotation * transform.forward, Color.blue);
+        Debug.DrawRay(transform.position, sailNormalWS, Color.red);
+
         if (Vector3.Cross(windDirectionWS, sailRotation * transform.forward).y < 0.0f)
         {
             sailNormalWS *= -1.0f;
