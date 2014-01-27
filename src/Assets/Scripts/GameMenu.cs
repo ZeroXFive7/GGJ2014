@@ -14,16 +14,7 @@ public class GameMenu : MonoBehaviour {
 	}
 	
     void gameStart(){
-        if(Array.IndexOf(Globals.players, "boat")>=0){
-            for(int index = 0; index < Globals.players.Length; index++){
-                if(Globals.players[index] == "whale"){
-                    //TODO Add whale
-                }
-                else if (Globals.players[index] == "boat"){
-                    //TODO Add boat
-                }
-            }
-            
+        if(Array.IndexOf(Globals.players, "boat")>=0){            
             //Load level
             Application.LoadLevel(1);
         }
