@@ -38,12 +38,10 @@ public class ShipMovement : MonoBehaviour
 
     void Start()
     {
-        if (Globals.players[joystickIndex - 1] != "boat")
-        {
-            var cam = GameObject.FindObjectsOfType<CameraMovement>().Where(c => c.name.Contains(joystickIndex.ToString())).First();
-            GameObject.Destroy(cam.gameObject);
-            GameObject.Destroy(gameObject);
-        }
+        //if (Globals.players[joystickIndex] != "boat")
+        //{
+        //    GameObject.Destroy(gameObject);
+        //}
         Debug.Log("I DIDNT DIE " + joystickIndex);
    }
 

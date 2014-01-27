@@ -2200,6 +2200,7 @@ GameObject:
   - 54: {fileID: 464308920}
   - 114: {fileID: 464308919}
   - 65: {fileID: 464308921}
+  - 114: {fileID: 464308923}
   m_Layer: 0
   m_Name: ShipPlayer2
   m_TagString: Untagged
@@ -2293,6 +2294,19 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
+--- !u!114 &464308923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 464308917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88c4dfd475b0824ca71bed6a21b9874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartHealth: 2
+  health: 0
 --- !u!1001 &512318503
 Prefab:
   m_ObjectHideFlags: 0
@@ -2339,7 +2353,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 4c0df4c9a5446d347a6f214f72e23607, type: 2}
       propertyPath: ship
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1737714300}
     - target: {fileID: 2000000, guid: 4c0df4c9a5446d347a6f214f72e23607, type: 2}
       propertyPath: m_NormalizedViewPortRect.y
       value: 0
@@ -2435,6 +2449,7 @@ GameObject:
   - 54: {fileID: 615446456}
   - 114: {fileID: 615446455}
   - 65: {fileID: 615446457}
+  - 114: {fileID: 615446459}
   m_Layer: 0
   m_Name: ShipPlayer1
   m_TagString: Untagged
@@ -2528,6 +2543,19 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
+--- !u!114 &615446459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 615446453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88c4dfd475b0824ca71bed6a21b9874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartHealth: 2
+  health: 0
 --- !u!1 &617560328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,7 +3154,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: b40e971bca1087540945d53484069847, type: 2}
       propertyPath: m_Name
-      value: Whale1
+      value: Whale
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b40e971bca1087540945d53484069847, type: 2}
@@ -3600,7 +3628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e142b32ca685ee447ae7897e1466ba55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystickIndex: 3
+  joystickIndex: 4
   ship: {fileID: 1669753007}
   distanceAbove: 8
   distanceBehind: 6
@@ -4198,7 +4226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystickIndex: 3
-  ship: {fileID: 0}
+  ship: {fileID: 1737714300}
   distanceAbove: 1.79999995
   distanceBehind: 2.79999995
   rate: 2
@@ -5205,6 +5233,10 @@ Prefab:
     - target: {fileID: 100014, guid: bda1fd107ece8b742b3680c66f4108bd, type: 2}
       propertyPath: m_Name
       value: ShipPlayer1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: bda1fd107ece8b742b3680c66f4108bd, type: 2}
+      propertyPath: joystickIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bda1fd107ece8b742b3680c66f4108bd, type: 2}
@@ -6712,8 +6744,9 @@ GameObject:
   - 114: {fileID: 1669753010}
   - 54: {fileID: 1669753009}
   - 65: {fileID: 1669753008}
+  - 114: {fileID: 1669753011}
   m_Layer: 0
-  m_Name: Whale1
+  m_Name: Whale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6775,6 +6808,19 @@ MonoBehaviour:
   RotationSpeed: 2
   SwimSpeed: .0520000011
   Health: 100
+--- !u!114 &1669753011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1669753006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1bb9143b3d19f144b3165636425ac84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartHealth: 20
+  health: 0
 --- !u!1 &1723719729
 GameObject:
   m_ObjectHideFlags: 0
@@ -7902,6 +7948,7 @@ GameObject:
   - 54: {fileID: 1737714303}
   - 114: {fileID: 1737714302}
   - 65: {fileID: 1737714301}
+  - 114: {fileID: 1737714305}
   m_Layer: 0
   m_Name: ShipPlayer3
   m_TagString: Untagged
@@ -7995,6 +8042,19 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
+--- !u!114 &1737714305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1737714299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88c4dfd475b0824ca71bed6a21b9874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartHealth: 2
+  health: 0
 --- !u!1001 &1807622091
 Prefab:
   m_ObjectHideFlags: 0
@@ -8645,7 +8705,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 4c0df4c9a5446d347a6f214f72e23607, type: 2}
       propertyPath: joystickIndex
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 4c0df4c9a5446d347a6f214f72e23607, type: 2}
       propertyPath: ship

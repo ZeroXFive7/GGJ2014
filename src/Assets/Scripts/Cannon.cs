@@ -29,6 +29,12 @@ public class Cannon : MonoBehaviour {
             bullet.rigidbody.velocity = transform.forward * FireVelocity + transform.parent.rigidbody.velocity;
 			Physics.IgnoreCollision(transform.parent.collider, bullet.collider);
 
+			var cannonball = bullet.GetComponent<CannonballMovement>();
+			if (cannonball != null)
+			{
+				cannonball.Owner = transform.parent.gameObject;
+			}
+
             parent.CannonRecoil(transform.position, transform.forward);
         }
     }

@@ -22,10 +22,21 @@ public class WhaleController : MonoBehaviour {
             if (Globals.players[i] == "whale")
             {
                 PlayerNumber = i;
+                //CameraMovement cam = GameObject.Find("ShipCameraPlayer" + PlayerNumber).GetComponent<CameraMovement>();
+                //cam.ship = transform;
+                //cam.distanceAbove = 8;
+                //cam.distanceBehind = 6;
+
+                break;
             }
         }
 	}
-	
+
+    void OnCollisionEnter(Collision collision)
+    {
+        collision.gameObject.GetComponent<PlayerDamage>().Kill(null);
+    }
+
 	// Update is called once per frame
 	public void Update() {
 		UpdateMovement();

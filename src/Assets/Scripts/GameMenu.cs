@@ -42,7 +42,6 @@ public Texture startTexture = null;
 
     bool setWhale(int playerIndex){
         //If no player is the whale, set the whale
-        Debug.Log(Array.IndexOf(Globals.players, "whale"));
         if( Array.IndexOf(Globals.players, "whale") < 0 ){
             Globals.players[playerIndex] = "whale";
             TextMesh mesh = (TextMesh)GameObject.Find("Player " + playerIndex.ToString()).GetComponent("TextMesh");

@@ -8,6 +8,8 @@ public class CannonballMovement : MonoBehaviour
 
     private float spawnTime;
 
+	public GameObject Owner;
+
     void Awake()
     {
         spawnTime = Time.time;
@@ -15,6 +17,12 @@ public class CannonballMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+		var otherHealth = collision.gameObject.GetComponent<Damagable>();
+		if (otherHealth != null)
+		{
+			otherHealth.Damage(1, Owner);
+		}
+
         Destroy(gameObject);
     }
 

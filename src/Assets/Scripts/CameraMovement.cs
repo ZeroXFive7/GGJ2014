@@ -4,16 +4,16 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
-    private int joystickIndex;
+    public int joystickIndex;
 
     [SerializeField]
-    private Transform ship;
+    public Transform ship;
 
     [SerializeField]
-    private float distanceAbove;
+    public float distanceAbove;
 
     [SerializeField]
-    private float distanceBehind;
+    public float distanceBehind;
 
     [SerializeField]
     private float rate;
@@ -38,32 +38,6 @@ public class CameraMovement : MonoBehaviour
         directionBehind = distanceAbove * Vector3.up - distanceBehind * Vector3.forward;
         directionLeft   = distanceAbove * Vector3.up - distanceBehind * Vector3.right;
         directionRight  = distanceAbove * Vector3.up + distanceBehind * Vector3.right;
-
-        int index;
-        if (name.Contains("Whale"))
-        {
-            index = GetComponent<WhaleController>().PlayerNumber;
-        }
-        else
-        {
-            index = GetComponent<ShipMovement>().joystickIndex;
-        }
-
-        switch (index)
-        {
-            case 1:
-                camera.rect = new Rect(0.0f, 0.5f, 0.5f, 0.5f);
-                break;
-            case 2:
-                camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-                break;
-            case 3:
-                camera.rect = new Rect(0.0f, 0.0f, 0.5f, 0.5f);
-                break;
-            case 4:
-                camera.rect = new Rect(0.5f, 0.0f, 0.5f, 0.5f);
-                break;
-        }
     }
 
 	void FixedUpdate ()
@@ -94,19 +68,16 @@ public class CameraMovement : MonoBehaviour
 
     private void ReadInput()
     {
-        if (joystickIndex >= 0)
+        focusDirection = FocusDirection.CENTER;
+
+        if (Input.GetAxis("CameraLeftJoystick" + joystickIndex) > 0.25f)
         {
-            focusDirection = FocusDirection.CENTER;
+            focusDirection = FocusDirection.LEFT;
+        }
 
-            if (Input.GetAxis("CameraLeftJoystick" + joystickIndex) > 0.25f)
-            {
-                focusDirection = FocusDirection.LEFT;
-            }
-
-            if (Input.GetAxis("CameraRightJoystick" + joystickIndex) > 0.25f)
-            {
-                focusDirection = FocusDirection.RIGHT;
-            }
+        if (Input.GetAxis("CameraRightJoystick" + joystickIndex) > 0.25f)
+        {
+            focusDirection = FocusDirection.RIGHT;
         }
     }
 }
