@@ -295,7 +295,7 @@ GameObject:
   - 23: {fileID: 770842652}
   - 102: {fileID: 770842651}
   m_Layer: 0
-  m_Name: Press X
+  m_Name: Press Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770842650}
-  m_Text: Press <X> For Game Controls
+  m_Text: Press <Y> For Game Controls
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

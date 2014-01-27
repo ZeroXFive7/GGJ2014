@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
 
 public static class Globals {
     public static string[]  players = {"","","",""};
@@ -27,6 +28,11 @@ public Texture startTexture = null;
     }
 
     bool setBoat(int playerIndex) {
+        if (Globals.players.Where(p => p == "boat").ToArray().Length == 3)
+        {
+            return setWhale(playerIndex);
+        }
+
         Globals.players[playerIndex] = "boat";
         TextMesh mesh = (TextMesh)GameObject.Find("Player " + playerIndex.ToString()).GetComponent("TextMesh");
         mesh.text = "BOAT";

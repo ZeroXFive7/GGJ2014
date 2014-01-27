@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
 
 public class ShipMovement : MonoBehaviour
 {
@@ -35,6 +36,17 @@ public class ShipMovement : MonoBehaviour
     private float slack;
     private float rudder;
 
+    void Start()
+    {
+        if (Globals.players[joystickIndex - 1] != "boat")
+        {
+            var cam = GameObject.FindObjectsOfType<CameraMovement>().Where(c => c.name.Contains(joystickIndex.ToString())).First();
+            GameObject.Destroy(cam.gameObject);
+            GameObject.Destroy(gameObject);
+        }
+        Debug.Log("I DIDNT DIE " + joystickIndex);
+   }
+
     void FixedUpdate()
     {
         windDirectionWS = new Vector3(1.0f, 0.0f, 1.0f).normalized;
@@ -56,6 +68,7 @@ public class ShipMovement : MonoBehaviour
     {
         Quaternion rudderRotationLS = Quaternion.Euler(0.0f, -rudder * maxRudderAngle, 0.0f);
         Vector3 targetLocal = (rudderRotationLS * -Vector3.forward).normalized;
+
         rudderTangentLS = Vector3.Lerp(rudderTangentLS, targetLocal, Time.deltaTime);
 
         Transform rudderObject = transform.FindChild("Rudder");
